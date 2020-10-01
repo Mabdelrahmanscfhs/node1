@@ -1,0 +1,30 @@
+---
+- name: run script in dev group and do some tasks
+  hosts: dev
+  tasks:
+   - name: create group apache
+     group:
+      name: apache
+      state: present
+   - name: create user  apache
+     user:
+      name: apache
+      group: apache
+   - name: create folder /webdev
+     file:
+      path: /webdev
+      state: directory
+      owner: apache
+      group: apache
+      mode: u=rwx,g=rwx,o=rx
+   - name: create symbloic link
+     file:
+      src: /webdev
+      dest: /var/www/html/webdev
+      owner: apache
+      group: apache
+      state: link
+   - name: create file index.html
+     copy:
+        content: 'Development'
+        dest: /webdev/index.html

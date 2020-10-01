@@ -1,0 +1,5 @@
+---
+- name: run role apache inside the path of /home/ansible/roles
+  hosts: all
+  roles:
+   - apache

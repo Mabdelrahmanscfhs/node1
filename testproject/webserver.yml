@@ -1,0 +1,33 @@
+---
+- name: creating webserver using yaml file as below
+  hosts: all
+  vars_files: variables.yaml
+  tasks:
+   - name: install package {{ web_pkg }} using yum
+     yum:
+      name: '{{ web_pkg }}'
+      state: present
+   - name: install package {{ fw_pkg }}using yum
+     yum:
+      name: '{{ fw_pkg }}'
+      state: latest
+   - name: restart service {{ web_service }}
+     service:
+      name: '{{ web_service }}'
+      state: restarted
+      enabled: true
+   - name: insert firewall rule
+     firewalld:
+       service: '{{ rule }}'
+       permanent: yes
+       state: enabled
+       immediate: true
+   - name: restart  service {{ fw_service }}
+     service:
+       name: '{{ fw_service }}'
+       state: restarted
+       enabled: true
+   - name: copy content to the file /var/www/html/index.html
+     copy:
+       content: "ansible controler " 
+       dest: /var/www/html/index.html

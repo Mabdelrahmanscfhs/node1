@@ -1,0 +1,12 @@
+---
+# tasks file for files
+- name: test copy files
+  copy:
+   src: index.html
+   dest: /var/www/html/index.html1
+  notify: index1
+- name: templates test
+  template:
+   src: index.html.j2
+   dest: /var/www/html/index.html
+  notify: index2

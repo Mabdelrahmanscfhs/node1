@@ -1,0 +1,12 @@
+---
+# handlers file for files
+- name: index1
+  service: 
+   name: httpd
+   state: restarted
+   enabled: true
+- name: index2 
+  service:
+   name: httpd  
+   state: restarted
+   enabled: true

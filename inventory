@@ -1,0 +1,5 @@
+node1-machine
+node2-machine
+
+[dev]
+node2-machine

@@ -1,0 +1,27 @@
+---
+apache_log_dir: /var/log/apache2
+
+server_name: localhost
+
+apache_virtualhosts:
+  - file_name: 10-alias-vhost.conf
+    listening_ip: '*'
+    listening_port: 80
+    server_name: localhost
+    document_root: /var/www
+    Alias: /reviewstats /var/reviewstats
+    extra_directives: |
+      LogLevel info
+      ErrorLog {{ apache_log_dir }}/localhost-error.log
+      CustomLog {{ apache_log_dir }}/localhost-access.log combined env=!dontlog
+    _directories:
+      - _root: /var/www
+        Options: Indexes FollowSymLinks
+        AllowOverride: None
+        extra_directives: |
+          Require all granted
+      - _root: /var/reviewstats
+        Options: Indexes FollowSymLinks
+        AllowOverride: None
+        extra_directives: |
+          Require all granted

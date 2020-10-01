@@ -1,0 +1,23 @@
+---
+# tasks file for apache
+- name: install httpd package
+  yum: 
+   name: '{{ web_pkg }}'
+   state: present
+- name: insert firewall rule in package 
+  firewalld:
+   service: '{{ web_service }}'
+   permanent: yes
+   state: enabled
+   immediate: yes
+- name: restart firewall service
+  service:
+   name: '{{ sr_pkg }}'
+   state: restarted
+   enabled: true
+- name: transfer template file
+  template:
+   src: index.html.j2
+   dest: /var/www/html/index.html
+  notify: updatefile
+

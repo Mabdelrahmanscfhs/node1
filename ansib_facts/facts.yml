@@ -1,0 +1,12 @@
+---
+- name: test debug massege
+  hosts: all
+  tasks: 
+   - name: run ls command
+     command: ls -ltra
+     register: testvar
+   - name: using debug
+     debug:
+      msg: this the the end of massage {{ ansible_facts['default_ipv4'] }}
+#   - debug:
+#      var: testvar

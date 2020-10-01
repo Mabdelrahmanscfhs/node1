@@ -1,0 +1,16 @@
+---
+- name: this to install php, mariadb and httpd
+  hosts: all
+  tasks:
+   - yum:
+      name: php
+      state: present
+     when: ansible_facts.hostname == "node1-machine"
+   - yum:                                         
+      name: mariadb                                   
+      state: present                              
+     when: ansible_facts.hostname == "node1-machine"
+   - yum:
+      name: httpd
+      state: present
+     when: ansible_facts.hostname == "node2-machine"

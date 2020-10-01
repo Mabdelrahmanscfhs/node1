@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  author: Alex McClennan
+  description: Apache2
+  license: license (BSD, MIT)
+  min_ansible_version: 2.0
+  platforms:
+  - name: Centos
+    versions:
+    - 7
+  - name: RHEL
+    versions:
+    - 7
+  galaxy_tags:
+    - apache
+    - web
+
+dependencies: []

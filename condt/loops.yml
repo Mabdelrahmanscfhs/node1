@@ -1,0 +1,17 @@
+---
+- name: creating webserver using yaml file as below
+  hosts: all
+  vars:
+   cmd:
+    - ls
+    - pwd
+    - touch test
+  tasks:
+   - name: test run command
+     command: "{{ item }} " 
+     register: testv
+     when: ansible_facts['default_ipv4']['address'] == '172.25.230.239'
+     loop: "{{ cmd }} "
+   - name: debug module
+     debug:
+      var: testv

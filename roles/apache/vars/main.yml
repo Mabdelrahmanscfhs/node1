@@ -1,0 +1,6 @@
+---
+# vars file for apache
+web_pkg: httpd
+sr_pkg: firewalld
+web_service: http
+rule: http

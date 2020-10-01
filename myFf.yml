@@ -1,0 +1,9 @@
+---
+- name: this is the fisrt test yamal ffor me
+  hosts: all
+  tasks:
+   - name: run rservice command
+     service:
+           name: httpd
+           state: restarted
+           enabled: yes

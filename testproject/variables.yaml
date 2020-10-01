@@ -1,0 +1,10 @@
+---
+web_pkg: httpd
+db_pkg: mariadb
+fw_pkg: firewalld
+fw_service: firewalld
+sr_pkg: firewalld
+web_service: httpd
+db_service: mariadb
+rule: http
+port: 80

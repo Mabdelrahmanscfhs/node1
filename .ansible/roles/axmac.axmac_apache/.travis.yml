@@ -1,0 +1,47 @@
+---
+sudo: required
+dist: trusty
+language: python
+python:
+  - "2.7"
+services:
+  - docker
+env:
+  global:
+    - PATH="/usr/bin:$PATH"
+
+addons:
+  apt:
+    packages:
+    - python-pip
+
+before_install:
+    # Ansible doesn't play well with virtualenv
+  - deactivate
+  - sudo apt-get update -qq
+  - sudo apt-get install -y -o Dpkg::Options::="--force-confnew" docker-ce
+
+install:
+    # Install dependencies
+  - sudo pip install docker-py
+  - sudo pip install ansible
+
+    # Replace TravisCI python with a more standard one.
+  - sudo rm /usr/bin/python && sudo ln -s /usr/bin/python2.7 /usr/bin/python
+
+    # Check Ansible version
+  - ansible --version
+
+    # Create ansible.cfg
+  - printf '[defaults]\nroles_path=../:tests/galaxy/roles' > ansible.cfg
+  - printf '\nhost_key_checking = False' >> ansible.cfg
+
+script:
+  - ansible-galaxy install -r tests/requirements.yaml -p tests/galaxy/roles
+  - ansible-playbook tests/main.yaml --syntax-check
+  - ansible-playbook tests/main.yaml
+  - ansible-playbook tests/centos7-certs.yaml --syntax-check
+  - ansible-playbook tests/centos7-certs.yaml --tags certificates
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/

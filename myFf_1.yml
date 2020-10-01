@@ -1,0 +1,13 @@
+---
+- name: this is the fisrt test yamal ffor me
+  hosts: all
+  tasks:
+   - name: run command ls
+     command: ls -ltr 
+   - name: run command yum update -y
+     command: yum update -y
+   - name: run rservice command
+     service:
+           name: httpd
+           state: restarted
+           enabled: yes
